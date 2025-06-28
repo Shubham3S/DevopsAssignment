@@ -65,21 +65,4 @@ We have an Azure serverless system storing billing records in Azure Cosmos DB.
    - Compression (GZIP/Parquet) reduces data size.  
    - Read throttling and caching reduce function invocations.
 
----
 
-## 🧾 Pseudocode Summary
-
-### Archival Function (`functions/archive_old_data.py`)
-```python
-import datetime
-import json
-import gzip
-
-def archive_old_records():
-    cutoff_date = datetime.datetime.utcnow() - datetime.timedelta(days=90)
-    records = query_cosmos_db("SELECT * FROM Billing WHERE BillingDate < @cutoff", cutoff_date)
-    
-    for record in records:
-        compressed = gzip.compress(json.dumps(record).encode('utf-8'))
-        upload_to_blob(f"archive/{record['billingId']}.json.gz", compressed)
-        # Optionally delete or mark archived in Cosmos DB

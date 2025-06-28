@@ -64,5 +64,9 @@ We have an Azure serverless system storing billing records in Azure Cosmos DB.
    - Blob Storage Cold/Archive tiers reduce storage cost for infrequently accessed data.  
    - Compression (GZIP/Parquet) reduces data size.  
    - Read throttling and caching reduce function invocations.
+  
+## Infrastructure can be deployed using Terraform under deployment/terraform/.**
+
+
 
 
